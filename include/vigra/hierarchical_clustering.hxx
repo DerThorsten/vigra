@@ -309,12 +309,20 @@ namespace cluster_operators{
 
             const size_t dU = mergeGraph_.degree(u);
             const size_t dV = mergeGraph_.degree(u);
+
+            // if the degree of u or v is 1, we could add a multiplier
+            // (but maybe only if tiny, otherwise nodes at border will have bias)
+            // (ok...they have bias anyway)
+
             const BaseGraphEdge ee=EdgeHelper::itemToGraphItem(mergeGraph_,e);
             const BaseGraphNode uu=NodeHelper::itemToGraphItem(mergeGraph_,u);
             const BaseGraphNode vv=NodeHelper::itemToGraphItem(mergeGraph_,v);
 
-            const float sizeU = std::min(nodeSizeMap_[uu] , float(std::pow(50.f,3)));
-            const float sizeV = std::min(nodeSizeMap_[vv] , float(std::pow(50.f,3)));
+            //const float sizeU = std::min(nodeSizeMap_[uu] , float(std::pow(50.f,3)));
+            //const float sizeV = std::min(nodeSizeMap_[vv] , float(std::pow(50.f,3)));
+
+            const float sizeU = nodeSizeMap_[uu];
+            const float sizeV = nodeSizeMap_[vv];
 
             const ValueType wardFacRaw = 1.0 / ( 1.0/std::sqrt(sizeU) + 1.0/std::sqrt(sizeV) );
             const ValueType wardFac = (wardFacRaw*wardness_) + (1.0-wardness_);
