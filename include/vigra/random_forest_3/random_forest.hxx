@@ -155,6 +155,12 @@ public:
     {
         return problem_spec_.num_classes_;
     }
+    
+    /// \brief Return the number of classes.
+    size_t num_features() const
+    {
+        return problem_spec_.num_features_;
+    }
 
     /// \brief The graph structure.
     Graph graph_;
